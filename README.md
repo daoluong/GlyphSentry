@@ -36,3 +36,7 @@ node tests/scanner.test.js
 ## Quyền
 
 `storage`, `messagesRead`, `accountsRead`, `scripting`.
+
+## Giấy phép
+
+[MIT](LICENSE) © 2026 daoluong
