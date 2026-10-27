@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "GlyphSentry",
+  "version": "0.1",
+  "description": "Guards your inbox against look-alike characters: highlights non-Latin letters, mixed-script homographs and invisible Unicode controls, and flags addresses that contain non-Latin characters or an unfamiliar domain.",
+  "author": "GlyphSentry",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "glyphsentry@local.thunderbird",
+      "strict_min_version": "128.0"
+    }
+  },
+  "background": {
+    "scripts": ["content/scanner.js", "background.js"]
+  },
+  "permissions": ["storage", "messagesRead", "accountsRead", "scripting"],
+  "action": {
+    "default_title": "GlyphSentry — toggle highlighting for this message",
+    "default_icon": "icons/icon.svg"
+  },
+  "icons": {
+    "32": "icons/icon.svg",
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  }
+}

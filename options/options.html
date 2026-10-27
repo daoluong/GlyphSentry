@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GlyphSentry — Settings</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>GlyphSentry</h1>
+        <p class="tagline">Look-alike glyphs never slip past the guard.</p>
+        <p class="lead">
+          Marks letters outside the Latin script, mixed-script look-alikes and invisible Unicode
+          controls inside messages. Email addresses, URLs and domain names are always rendered in
+          monospace so look-alike characters are easier to spot.
+        </p>
+      </header>
+
+      <section class="card">
+        <label class="row toggle">
+          <input type="checkbox" id="enabled" />
+          <span>
+            Enable highlighting
+            <small>Turning this off restores the message exactly as it was.</small>
+          </span>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>Detection mode</h2>
+
+        <label class="row choice">
+          <input type="radio" name="mode" value="nonlatin" />
+          <span>
+            <b>Non-Latin</b>
+            <small>Highlight every letter that is not Latin (Greek, Cyrillic, Arabic, CJK, …).</small>
+          </span>
+        </label>
+
+        <label class="row choice">
+          <input type="radio" name="mode" value="mixed" />
+          <span>
+            <b>Mixed-script</b>
+            <small>
+              Only highlight foreign letters inside a word that also contains Latin letters, e.g.
+              <code>раypal.com</code> or <code>microsοft.com</code>. Much quieter for multilingual mail.
+            </small>
+          </span>
+        </label>
+
+        <label class="row choice">
+          <input type="radio" name="mode" value="security" />
+          <span>
+            <b>Security</b>
+            <small>
+              Non-Latin plus invisible characters: bidi controls, zero-width and tag characters that
+              can reorder or hide text. Invisible characters are shown as a small
+              <code>U+XXXX</code> badge.
+            </small>
+          </span>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>Colours</h2>
+        <p class="note">Deep red on a light red background stays readable in both light and dark themes.</p>
+        <div class="row colors">
+          <label>
+            Text
+            <input type="color" id="color" />
+          </label>
+          <label>
+            Background
+            <input type="color" id="background" />
+          </label>
+          <button type="button" id="resetColors" class="link">Reset colours</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Scripts to highlight</h2>
+        <p class="note">Latin (including Vietnamese diacritics such as ế, ộ, đ) is never highlighted.</p>
+        <div class="grid" id="scripts"></div>
+        <div class="row inline">
+          <button type="button" id="allScripts" class="link">Select all</button>
+          <button type="button" id="noScripts" class="link">Select none</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Monospace</h2>
+        <label class="row toggle">
+          <input type="checkbox" id="monoEmails" />
+          <span>
+            Force email addresses to monospace
+            <small>Applies to anything that looks like <code>name@example.com</code>.</small>
+          </span>
+        </label>
+        <label class="row toggle">
+          <input type="checkbox" id="monoDomains" />
+          <span>
+            Force domain names and URLs to monospace
+            <small>Applies to <code>https://example.com</code>, <code>www.example.com</code> and bare domains.</small>
+          </span>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>Address warnings</h2>
+        <p class="note">
+          For the domain check the reference is the domain of the account that received the message
+          (every identity of that account). Sub-domains count as internal. When no account domain is
+          available — local folders, for example — the domain comparison is skipped, but the
+          non-Latin check still runs.
+        </p>
+        <label class="row toggle">
+          <input type="checkbox" id="warnNonLatinAddress" />
+          <span>
+            Warning icon next to addresses containing non-Latin characters
+            <small>
+              Flags an address such as <code>раypal@example.com</code> or
+              <code>user@пример.com</code> with a red ⚠ badge and a dotted underline, even when the
+              domain matches yours. Vietnamese and other Latin diacritics are not affected.
+            </small>
+          </span>
+        </label>
+        <label class="row toggle">
+          <input type="checkbox" id="warnForeignEmails" />
+          <span>
+            Warning icon next to addresses from other domains
+            <small>
+              Adds a small ⚠ badge after every email address in the message that is not from your
+              domain. Hovering the badge shows the domain that was compared.
+            </small>
+          </span>
+        </label>
+        <label class="row toggle">
+          <input type="checkbox" id="warnSender" />
+          <span>
+            Warning banner for the sender
+            <small>
+              Thunderbird does not allow extensions to style the message header, so a sender whose
+              domain is not yours is reported in a banner at the top of the message.
+            </small>
+          </span>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>Reset</h2>
+        <div class="row inline">
+          <button type="button" id="resetAll">Restore defaults</button>
+          <span class="status" id="status" role="status" aria-live="polite"></span>
+        </div>
+      </section>
+
+      <footer>
+        <p>
+          The add-on never reads message sources, never uploads anything, and only touches the
+          rendered message pane. Click the toolbar button to disable highlighting for the message
+          that is currently open.
+        </p>
+      </footer>
+    </main>
+
+    <script src="../content/scanner.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>

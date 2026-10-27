@@ -1,0 +1,19 @@
+# Build output
+dist/
+*.xpi
+
+# Dependencies
+node_modules/
+
+# Logs and temporary files
+*.log
+npm-debug.log*
+.thumbs/
+*.tmp
+*.bak
+*~
+
+# OS clutter
+Thumbs.db
+desktop.ini
+.DS_Store
